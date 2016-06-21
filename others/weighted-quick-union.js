@@ -1,4 +1,4 @@
-var QU = (function () {
+var WQU = (function () {
   var proto = {
     connected: function (a, b) {
       return this.root(a) === this.root(b)
@@ -9,9 +9,15 @@ var QU = (function () {
 
       if(aRoot === bRoot) return;
 
-      this.arr[bRoot] = aRoot;
+      if(this.szArr[aRoot] > this.szArr[bRoot]){
+        this.arr[bRoot] = aRoot;
+        this.szArr[aRoot] += this.szArr[bRoot];
+      } else {
+        this.arr[aRoot] = bRoot;
+        this.szArr[bRoot] += this.szArr[aRoot]
+      }
 
-      return this.arr;
+      return this;
     },
     root: function(a){
       while(this.arr[a] !== a){
@@ -21,14 +27,15 @@ var QU = (function () {
     }
   };
 
-  function QU(arr) {
+  function WQU(arr, szArr) {
     var obj = Object.create(proto);
     obj.arr = arr;
+    obj.szArr = szArr;
     return obj;
   }
 
-  return QU;
+  return WQU;
 }());
 
 
-console.log(QU([0, 2, 0, 2, 4, 4, 7, 5, 1]).union(0,6))
+console.log(WQU([0, 2, 0, 2, 4, 4, 7, 5, 1], [5, 0, 0, 0, 4, 0, 0, 0, 0]).union(0,4).szArr)
