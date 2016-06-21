@@ -11,13 +11,13 @@ var Stack = (function () {
       return this;
     },
     pop: function () {
-      if (this.N === Math.floor(arr.length/4)){
-        arr = this.resize(arr.length/2)
-      }
       var temp = arr[this.head];
       arr[this.head] = null;
       this.N--;
       this.head--;
+      if (this.N === Math.floor(arr.length / 4)) {
+        arr = this.resize(arr.length / 2)
+      }
       return temp;
     },
     resize: function (length) {
@@ -53,8 +53,6 @@ q.push(1)
 q.push(1)
 q.push(1)
 q.push(1)
-q.pop()
-q.pop()
 q.pop()
 q.pop()
 q.pop()
