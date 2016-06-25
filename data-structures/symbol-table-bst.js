@@ -56,6 +56,12 @@ var ST = (function () {
       return node.size
   }
 
+  function _inOrder(node, queue) {
+    if (node.left !== undefined) _inOrder(node.left, queue)
+    queue.push(node.key);
+    if (node.right !== undefined) _inOrder(node.right, queue)
+  }
+
   var proto = {
     get: function (key) {
       return _get(this.root, key)
@@ -65,6 +71,11 @@ var ST = (function () {
     },
     size: function () {
       return _size(this.root)
+    },
+    inOrder: function () {
+      var queue = [];
+      _inOrder(this.root, queue);
+      return queue;
     }
   };
 
@@ -84,4 +95,5 @@ stInstance.put('berp', 2)
 stInstance.put('ber1', 2)
 stInstance.put('aarp', 2)
 
-console.log(stInstance.size())
+console.log(stInstance.root.left)
+console.log(stInstance.inOrder())
