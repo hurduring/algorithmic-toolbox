@@ -62,6 +62,45 @@ var ST = (function () {
     if (node.right !== undefined) _inOrder(node.right, queue)
   }
 
+  function _floor(node, key) {
+    if (node === undefined) {
+      return undefined
+    }
+
+    if (key === node.key) {
+      return node;
+    }
+    if (key < node.key) {
+      return _floor(node.left, key)
+    }
+
+    var t = _floor(node.right, key)
+
+    if (t === undefined) {
+      return node;
+    } else {
+      return t;
+    }
+  }
+
+  function _ceil(node, key) {
+    if (node === undefined) return undefined;
+
+    if (key === node.key) {
+      return node;
+    }
+    if (key < node.key) {
+      var t = _ceil(node.left, key)
+      if (t === undefined) {
+        return node;
+      } else {
+        return t;
+      }
+    }
+
+    return _ceil(node.right, key)
+  }
+
   var proto = {
     get: function (key) {
       return _get(this.root, key)
@@ -76,6 +115,12 @@ var ST = (function () {
       var queue = [];
       _inOrder(this.root, queue);
       return queue;
+    },
+    floor: function (key) {
+      return _floor(this.root, key)
+    },
+    ceil: function (key) {
+      return _ceil(this.root, key)
     }
   };
 
@@ -87,13 +132,13 @@ var ST = (function () {
 }());
 
 var stInstance = ST();
-stInstance.put('derp', 1)
-stInstance.put('aerp', 1)
-stInstance.put('kerp', 2)
-stInstance.put('kerp', 2)
-stInstance.put('berp', 2)
-stInstance.put('ber1', 2)
-stInstance.put('aarp', 2)
+stInstance.put(27, 1)
+stInstance.put(25, 1)
+stInstance.put(60, 2)
+stInstance.put(30, 2)
+stInstance.put(11, 2)
+stInstance.put(12, 2)
 
-console.log(stInstance.root.left)
-console.log(stInstance.inOrder())
+console.log(stInstance.ceil(22))
+
+//console.log(stInstance.root)
