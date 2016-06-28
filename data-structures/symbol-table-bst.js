@@ -1,4 +1,4 @@
-var nodeDT = (function () {
+var nodeFactory = (function () {
   function node(key, value) {
     return {
       key: key,
@@ -16,7 +16,7 @@ var nodeDT = (function () {
 var ST = (function () {
   function _put(node, key, value) {
     if (node === undefined) {
-      return nodeDT(key, value)
+      return nodeFactory(key, value)
     }
 
     if (key < node.key) {
